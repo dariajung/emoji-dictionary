@@ -1,4 +1,5 @@
 import pickle
+import os
 
 class Emoji():
 
@@ -41,7 +42,7 @@ class Emoji():
 
     def dump(self, filename):
         try:
-            with open(filename, "wb") as f:
+            with open(filename, "w+") as f:
                 pickle.dump(self.emoji_directory, f)
                 print("Pickle dump was successful.")
                 return True
@@ -51,11 +52,11 @@ class Emoji():
 
 if __name__ == "__main__":
     em = Emoji()
-    em.create_dict(em.load_emoji_names())
 
-    print em.emoji_directory
-
-    if em.dump("emoji-dict.pickle"):
-        print "Whoo!"
+    if os.path.exists("emoji-dict.pickle") and em.load("emoji-dict.pickle"):
+        print("Emoji dictionary ready.")
     else:
-        print "ugh"
+        em.create_dict(em.load_emoji_names())
+        em.dump("emoji-dict.pickle")
+        print("Created new pickle file with emoji dictionary.")
+   
