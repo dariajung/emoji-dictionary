@@ -7,6 +7,8 @@ class Emoji():
         self.emoji_directory = dict()
         self.init()
 
+        print self.emoji_directory
+
     def init(self):
         if os.path.exists("emoji-dict.pickle") and self.load("emoji-dict.pickle"):
             print("Emoji dictionary ready.")
@@ -30,7 +32,7 @@ class Emoji():
     def create_dict(self, EMOJI_NAMES): 
         emoji_d = dict()
         for emoji in EMOJI_NAMES:
-            emoji_d[emoji] = "https://zulip.com/static/third/gemoji/images/emoji/%s.png" % emoji
+            emoji_d[emoji] = "https://zulip.com/static/third/gemoji/images/emoji/%s.png" % emoji.strip(':')
 
         # special add the HS emoji
         emoji_d['hackerschool'] = "https://external-content.zulipcdn.net/1fd50dd9cd66190492ee5c1f \
