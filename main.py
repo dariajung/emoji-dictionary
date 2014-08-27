@@ -5,6 +5,15 @@ class Emoji():
 
     def __init__(self):
         self.emoji_directory = dict()
+        self.init()
+
+    def init(self):
+        if os.path.exists("emoji-dict.pickle") and self.load("emoji-dict.pickle"):
+            print("Emoji dictionary ready.")
+        else:
+            self.create_dict(self.load_emoji_names())
+            self.dump("emoji-dict.pickle")
+            print("Created new pickle file with emoji dictionary.")
 
     def load_emoji_names(self):
         f = open('emoji.txt', 'r')
@@ -49,14 +58,7 @@ class Emoji():
         except:
             print("Could not dump.")
             return False
-
+   
 if __name__ == "__main__":
     em = Emoji()
-
-    if os.path.exists("emoji-dict.pickle") and em.load("emoji-dict.pickle"):
-        print("Emoji dictionary ready.")
-    else:
-        em.create_dict(em.load_emoji_names())
-        em.dump("emoji-dict.pickle")
-        print("Created new pickle file with emoji dictionary.")
-   
+    
